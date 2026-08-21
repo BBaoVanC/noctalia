@@ -1889,12 +1889,12 @@ namespace noctalia::config::schema {
         field(&DockConfig::showRunning, "show_running"),
         field(&DockConfig::autoHide, "auto_hide"),
         field(&DockConfig::smartAutoHide, "smart_auto_hide"),
-        // layer accepts top|overlay; anything else warns and leaves the default.
+        // layer accepts bottom|top|overlay; anything else warns and leaves the default.
         custom<DockConfig>(
             "layer",
             [](const toml::table& tbl, DockConfig& out, std::string_view parentPath, Diagnostics& diag) {
               if (auto v = tbl["layer"].value<std::string>()) {
-                if (*v == "top" || *v == "overlay") {
+                if (*v == "bottom" || *v == "top" || *v == "overlay") {
                   out.layer = *v;
                 } else {
                   diag.warn(joinPath(parentPath, "layer"), "expected top or overlay, got \"" + *v + "\"");
@@ -2149,13 +2149,13 @@ namespace noctalia::config::schema {
       return s;
     }
 
-    // layer accepts top|overlay (concrete string member); anything else warns.
+    // layer accepts bottom|top|overlay (concrete string member); anything else warns.
     Field<BarConfig> barLayerField() {
       return custom<BarConfig>(
           "layer",
           [](const toml::table& tbl, BarConfig& out, std::string_view parentPath, Diagnostics& diag) {
             if (auto v = tbl["layer"].value<std::string>()) {
-              if (*v == "top" || *v == "overlay") {
+              if (*v == "bottom" || *v == "top" || *v == "overlay") {
                 out.layer = *v;
               } else {
                 diag.warn(joinPath(parentPath, "layer"), "expected top or overlay, got \"" + *v + "\"");
@@ -2263,12 +2263,12 @@ namespace noctalia::config::schema {
         optionalBoolField(&BarMonitorOverride::smartAutoHide, "smart_auto_hide"),
         optionalBoolField(&BarMonitorOverride::showOnWorkspaceSwitch, "show_on_workspace_switch"),
         optionalBoolField(&BarMonitorOverride::reserveSpace, "reserve_space"),
-        // layer accepts top|overlay; anything else warns and leaves it unset.
+        // layer accepts bottom || top|overlay; anything else warns and leaves it unset.
         custom<BarMonitorOverride>(
             "layer",
             [](const toml::table& tbl, BarMonitorOverride& out, std::string_view parentPath, Diagnostics& diag) {
               if (auto v = tbl["layer"].value<std::string>()) {
-                if (*v == "top" || *v == "overlay") {
+                if (*v == "bottom" || *v == "top" || *v == "overlay") {
                   out.layer = *v;
                 } else {
                   diag.warn(joinPath(parentPath, "layer"), "expected top or overlay, got \"" + *v + "\"");

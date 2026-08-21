@@ -166,7 +166,7 @@ tint_intensity         = 0.3        # 0.0 = no tint, 1.0 = opaque
 enable_daemon      = true
 show_app_name      = true
 show_actions       = true           # show action buttons; when false, clicking a toast triggers its default action
-layer              = "top"          # top | overlay
+layer              = "top"          # bottom | top | overlay
 scale              = 1.0            # notification size multiplier applied on top of accessibility.ui_scale
 background_opacity = 0.97
 offset_x           = 20             # absolute horizontal margin from the screen edge
@@ -394,7 +394,7 @@ show_running        = true
 auto_hide           = false
 # smart_auto_hide   = false       # show when the active workspace is empty; hide when it has windows
 reserve_space       = true
-layer               = "top"         # top | overlay
+layer               = "top"         # bottom | top | overlay
 active_scale        = 1.0
 inactive_scale      = 0.85
 magnification       = true

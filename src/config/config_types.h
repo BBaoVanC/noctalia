@@ -69,7 +69,7 @@ struct BarMonitorOverride {
   std::optional<bool> smartAutoHide;
   std::optional<bool> showOnWorkspaceSwitch;
   std::optional<bool> reserveSpace;
-  std::optional<std::string> layer; // top | overlay
+  std::optional<std::string> layer; // bottom | top | overlay
   std::optional<std::int32_t> thickness;
   std::optional<float> backgroundOpacity;
   std::optional<ColorSpec> border;
@@ -136,7 +136,7 @@ struct BarConfig {
 
   [[nodiscard]] constexpr bool isAutoHideEnabled() const noexcept { return autoHide || smartAutoHide; }
   bool reserveSpace = true;  // reserve compositor exclusive zone; applies with or without auto_hide
-  std::string layer = "top"; // top | overlay — attached panels use the same layer
+  std::string layer = "top"; // bottom | top | overlay — attached panels use the same layer
   std::int32_t thickness = Style::barThicknessDefault;
   float backgroundOpacity = 1.0F;
   // Inside outline for the bar background; attached panels inherit the resolved values.
@@ -630,7 +630,7 @@ struct DockConfig {
   bool showRunning = true;             // also show running apps not in pinned list
   bool autoHide = false;               // slide out when not hovered (overlay mode)
   bool smartAutoHide = false;          // hide while the active workspace has windows; show when it is empty
-  std::string layer = "top";           // top | overlay
+  std::string layer = "top";           // bottom | top | overlay
 
   [[nodiscard]] constexpr bool isAutoHideEnabled() const noexcept { return autoHide || smartAutoHide; }
   bool reserveSpace = true;         // reserve compositor exclusive zone; applies with or without auto_hide
@@ -740,7 +740,7 @@ struct NotificationConfig {
   bool showAppName = true;
   bool showActions = true;
   std::string position = "top_right";
-  std::string layer = "top"; // top | overlay
+  std::string layer = "top"; // bottom | top | overlay
   float scale = 1.0F;
   float backgroundOpacity = 0.97F; // toast card background alpha (0.0–1.0)
   bool border = true;              // outline around toast cards
